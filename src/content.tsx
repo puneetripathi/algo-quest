@@ -1,10 +1,13 @@
 import cssText from "data-text:~style.css"
 import type { PlasmoCSConfig } from "plasmo"
+import { useEffect, useState } from "react"
 
-import { CountButton } from "~features/count-button"
+import Console from "~components/Console"
+import DialogBox from "~components/DialogBox"
+import Overlay from "~components/Overlay"
 
 export const config: PlasmoCSConfig = {
-  matches: ["https://www.plasmo.com/*"]
+  matches: ["https://leetcode.com/problems/*"]
 }
 
 export const getStyle = () => {
@@ -14,10 +17,60 @@ export const getStyle = () => {
 }
 
 const PlasmoOverlay = () => {
+  // Common state that will be shared by dialogbox and console to show/hide overlay
+  const [showOverlay, setShowOverlay] = useState<boolean>(true)
+  const [showConsole, setShowConsole] = useState<boolean>(false)
+  const [showDialogBox, setShowDialogBox] = useState<boolean>(true)
+  const [timeElapsed, setTimeElapsed] = useState<number>(0)
+  const [isTimerRunning, setIsTimerRunning] = useState<boolean>(true)
+
+  // If the user chooses to start the timer, and lock all the solutions
+  const lockIn = () => {
+    setShowDialogBox(false)
+    setShowOverlay(false)
+    setShowConsole(true)
+  }
+
+  // If the user chooses not to start the timer, don't lock all the solutions
+  const pass = () => {
+    setShowDialogBox(false)
+    setShowOverlay(false)
+  }
+
+  // Toggle timer
+  const toggleTimer = () => {
+    setIsTimerRunning((prevState) => !prevState)
+    setShowOverlay((prevState) => !prevState)
+  }
+
+  // Timer Effect
+  useEffect(() => {
+    // Update timer every 100ms to avoid the on/off flicker glitch
+    const intervalId = setInterval(
+      () => isTimerRunning && setTimeElapsed((prevTime) => prevTime + 1),
+      100
+    )
+
+    return () => clearInterval(intervalId) // Cleanup interval on unmount
+  }, [isTimerRunning])
+
+  // Temporary solution to edit the console
+  // useEffect(() => lockIn(), [])
+
   return (
-    <div className="plasmo-z-50 plasmo-flex plasmo-fixed plasmo-top-32 plasmo-right-8">
-      <CountButton />
-    </div>
+    <>
+      <Overlay showOverlay={showOverlay} />
+      {showConsole && (
+        <Console
+          isTimerRunning={isTimerRunning}
+          timeElapsed={timeElapsed}
+          toggleTimer={toggleTimer}
+        />
+      )}
+      {showDialogBox && (
+        <DialogBox showDialogBox={showDialogBox} lockIn={lockIn} pass={pass} />
+      )}
+    </>
   )
 }
 

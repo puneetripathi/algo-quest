@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react"
-import { FaRegCirclePause, FaRegCirclePlay } from "react-icons/fa6"
+import {
+  FaCircleCheck,
+  FaRegCirclePause,
+  FaRegCirclePlay
+} from "react-icons/fa6"
 import { MdDragHandle } from "react-icons/md"
 
 import { Storage } from "@plasmohq/storage"
@@ -7,12 +11,14 @@ import { Storage } from "@plasmohq/storage"
 type Props = {
   timeElapsed: number
   isTimerRunning: boolean
+  isSolutionAccepted: boolean
   toggleTimer: () => void
 }
 
 export default function Console({
   timeElapsed,
   isTimerRunning,
+  isSolutionAccepted,
   toggleTimer
 }: Props) {
   const storage = new Storage()
@@ -111,7 +117,9 @@ export default function Console({
         className="plasmo-absolute plasmo-top-0 plasmo-left-1/2 plasmo-transform -plasmo-translate-x-1/2 plasmo-cursor-grab active:plasmo-cursor-grabbing"
       />
       <div className="plasmo-flex plasmo-items-center plasmo-space-x-2 plasmo-text-white">
-        {isTimerRunning ? (
+        {isSolutionAccepted ? (
+          <FaCircleCheck className="plasmo-text-green-500" size={18} />
+        ) : isTimerRunning ? (
           <FaRegCirclePause
             className="plasmo-text-yellow-500 plasmo-cursor-pointer"
             size={18}

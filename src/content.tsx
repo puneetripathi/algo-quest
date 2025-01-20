@@ -23,6 +23,7 @@ const PlasmoOverlay = () => {
   const [showDialogBox, setShowDialogBox] = useState<boolean>(true)
   const [timeElapsed, setTimeElapsed] = useState<number>(0)
   const [isTimerRunning, setIsTimerRunning] = useState<boolean>(true)
+  const [isSolutionAccepted, setIsSolutionAccepted] = useState<boolean>(false)
 
   // If the user chooses to start the timer, and lock all the solutions
   const lockIn = () => {
@@ -54,8 +55,36 @@ const PlasmoOverlay = () => {
     return () => clearInterval(intervalId) // Cleanup interval on unmount
   }, [isTimerRunning])
 
+  const handleAccepted = () => {
+    setIsSolutionAccepted(true)
+    setIsTimerRunning(false)
+  }
+
+  // Check if the solution is submitted
+  useEffect(() => {
+    const observer = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        if (mutation.type === "childList") {
+          const highchartsRoot = document.querySelector(".highcharts-root")
+          if (highchartsRoot) {
+            // console.log("Highcharts root element added to the document")
+            handleAccepted()
+            observer.disconnect()
+            break
+          }
+        }
+      }
+    })
+
+    observer.observe(document.body, { childList: true, subtree: true })
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [timeElapsed])
+
   // Temporary solution to edit the console
-  // useEffect(() => lockIn(), [])
+  useEffect(() => lockIn(), [])
 
   return (
     <>
@@ -64,6 +93,7 @@ const PlasmoOverlay = () => {
         <Console
           isTimerRunning={isTimerRunning}
           timeElapsed={timeElapsed}
+          isSolutionAccepted={isSolutionAccepted}
           toggleTimer={toggleTimer}
         />
       )}

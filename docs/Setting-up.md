@@ -6,3 +6,5 @@
 4. Overlay, console, and dialogbox are sister components and are inter-dependent, so rather than using prop-drilling or having a complex state management. I'have simply used the content.tsx as the center that handles all the interdependebality.
 5. Passing on isTimerRunning dependency is necessary in **Console.tsx** as it in necessary for updating the state of isTimerRunning within the useEffect block. React closure gives the useEffect the initial value of iSTimerRunning when useEffect was initially called. Therefore, needs to be updated as isTimerRunning is flipped on/off.
 6. `import { Storage } from "@plasmohq/storage"` is required to store the position of the console in persistence. It stores the data into the local storage of the extension.
+7. To get if a new element is added to the dom, we need to use `MutationObserver()`
+8.

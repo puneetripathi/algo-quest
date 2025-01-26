@@ -2,8 +2,11 @@ import { useEffect, useState } from "react"
 import {
   FaCircleCheck,
   FaRegCirclePause,
-  FaRegCirclePlay
+  FaRegCirclePlay,
+  FaWandMagic,
+  FaWandMagicSparkles
 } from "react-icons/fa6"
+import { HiSparkles } from "react-icons/hi"
 import { MdDragHandle } from "react-icons/md"
 
 import { Storage } from "@plasmohq/storage"
@@ -13,13 +16,15 @@ type Props = {
   isTimerRunning: boolean
   isSolutionAccepted: boolean
   toggleTimer: () => void
+  bestTime: number
 }
 
 export default function Console({
   timeElapsed,
   isTimerRunning,
   isSolutionAccepted,
-  toggleTimer
+  toggleTimer,
+  bestTime
 }: Props) {
   const storage = new Storage()
 
@@ -111,12 +116,13 @@ export default function Console({
         left: `${position.x}px`,
         top: `${position.y}px`
       }}
-      className="plasmo-fixed plasmo-p-5 plasmo-bg-black plasmo-rounded-md plasmo-z-[1000] plasmo-cursor-default">
+      className="plasmo-fixed plasmo-p-5 plasmo-bg-black plasmo-rounded-md plasmo-z-[1000] plasmo-space-y-2">
       <MdDragHandle
         onMouseDown={handleMouseDown}
         className="plasmo-absolute plasmo-top-0 plasmo-left-1/2 plasmo-transform -plasmo-translate-x-1/2 plasmo-cursor-grab active:plasmo-cursor-grabbing"
       />
-      <div className="plasmo-flex plasmo-items-center plasmo-space-x-2 plasmo-text-white">
+
+      <div className="plasmo-flex plasmo-flex-row plasmo-justify-center plasmo-items-center plasmo-space-x-2 plasmo-text-white">
         {isSolutionAccepted ? (
           <FaCircleCheck className="plasmo-text-green-500" size={18} />
         ) : isTimerRunning ? (
@@ -134,6 +140,12 @@ export default function Console({
         )}
 
         <p className="plasmo-select-none">{formatTime(timeElapsed)}</p>
+      </div>
+
+      <div className="plasmo-flex plasmo-justify-center plasmo-items-center">
+        <p className="plasmo-text-xs plasmo-text-gray-500">
+          Best time: {bestTime > 0 ? formatTime(bestTime) : "N/A"}
+        </p>
       </div>
     </div>
   )

@@ -4,16 +4,16 @@ import { useEffect, useLayoutEffect, useState } from "react"
 
 import { Storage } from "@plasmohq/storage"
 
-import ChatSidebar from "~components/ChatSidebar"
-import Console from "~components/Console"
-import DialogBox from "~components/DialogBox"
-import Overlay from "~components/Overlay"
 import { exportBackup } from "~db/backup"
 import {
   getProblemByLink,
   updateProblemByLink,
   type ProblemSchema
 } from "~db/problemService"
+import ChatSidebar from "~features/ChatSidebar"
+import Console from "~features/Console"
+import DialogBox from "~features/DialogBox"
+import Overlay from "~features/Overlay"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://leetcode.com/problems/*"]

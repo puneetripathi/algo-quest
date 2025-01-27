@@ -157,17 +157,17 @@ export default function ChatSidebar({
           setIsSidebarVisible(false) // Closes the sidebar when clicking outside
         }}
         className={`${
-          isSidebarVisible ? "plasmo-block" : "plasmo-hidden"
-        } plasmo-flex-1 plasmo-fixed plasmo-right-0 plasmo-top-0 plasmo-bg-black plasmo-bg-opacity-70 plasmo-w-screen plasmo-h-screen plasmo-z-[9999]`}
+          isSidebarVisible ? "block" : "hidden"
+        } flex-1 fixed right-0 top-0 bg-black bg-opacity-70 w-screen h-screen z-[9999]`}
       />
 
       <div
         className={`${
-          isSidebarVisible ? "plasmo-right-0" : "-plasmo-right-[999]"
-        } plasmo-fixed plasmo-top-0 plasmo-bg-[#1A1A1A] plasmo-w-96 plasmo-h-screen plasmo-z-[10000] plasmo-transition-all flex flex-col`}>
-        <div className="plasmo-flex plasmo-flex-col plasmo-h-screen">
+          isSidebarVisible ? "right-0" : "-right-[999]"
+        } fixed top-0 bg-[#1A1A1A] w-96 h-screen z-[10000] transition-all flex flex-col`}>
+        <div className="flex flex-col h-screen">
           {/* Chat Header */}
-          <div className="plasmo-p-4 plasmo-border-b plasmo-border-[#0F0F0F] plasmo-bg-[#333333]">
+          <div className="p-4 border-b border-[#0F0F0F] bg-[#333333]">
             <p>Questbot</p>
           </div>
 
@@ -175,44 +175,42 @@ export default function ChatSidebar({
           <div
             id="algoquest-ai-chatbox"
             ref={chatboxRef}
-            className="plasmo-flex-1 plasmo-overflow-y-auto plasmo-p-4 plasmo-bg-[#262626] plasmo-space-y-4">
+            className="flex-1 overflow-y-auto p-4 bg-[#262626] space-y-4">
             {/* Chat content */}
             {messages.length > 0 ? (
               messages.map((message, index) => (
-                <div
-                  key={index}
-                  className="plasmo-flex plasmo-flex-row plasmo-space-x-2 plasmo-relative">
+                <div key={index} className="flex flex-row space-x-2 relative">
                   {message.role === "user" ? (
                     <img
                       src="https://picsum.photos/200"
-                      className="plasmo-absolute plasmo-w-6 plasmo-h-6 plasmo-bg-white plasmo-rounded-full"
+                      className="absolute w-6 h-6 bg-white rounded-full"
                     />
                   ) : (
-                    <FaRobot className="plasmo-absolute plasmo-w-6 plasmo-h-6" />
+                    <FaRobot className="absolute w-6 h-6" />
                   )}
 
-                  <div className="response-root plasmo-pl-6 plasmo-w-screen space-y-2">
+                  <div className="response-root pl-6 w-screen space-y-2">
                     <Remark>{message.content}</Remark>
                   </div>
                 </div>
               ))
             ) : (
-              <div className="plasmo-flex plasmo-flex-row plasmo-items-center plasmo-justify-center plasmo-inset-0 plasmo-h-full">
-                <div className="plasmo-flex plasmo-flex-col plasmo-items-center plasmo-justify-center plasmo-pl-4">
+              <div className="flex flex-row items-center justify-center inset-0 h-full">
+                <div className="flex flex-col items-center justify-center pl-4">
                   <FaRobot size={48} />
 
-                  <p className="plasmo-text-xl plasmo-text-white plasmo-text-center">
+                  <p className="text-xl text-white text-center">
                     Ask the assistant any coding relation questions you may have
                   </p>
 
-                  <div className="plasmo-grid plasmo-gap-2 plasmo-grid-cols-2 plasmo-mt-4">
+                  <div className="grid gap-2 grid-cols-2 mt-4">
                     <button
                       onClick={() =>
                         handleSendMessage(
                           "What is the problem statement asking for?"
                         )
                       }
-                      className="plasmo-border-[1px] plasmo-border-[#333] plasmo-text-[#ccc] plasmo-text-xs plasmo-p-2 plasmo-rounded-full">
+                      className="border-[1px] border-[#333] text-[#ccc] text-xs p-2 rounded-full">
                       What is the problem statement asking for?
                     </button>
 
@@ -220,7 +218,7 @@ export default function ChatSidebar({
                       onClick={() =>
                         handleSendMessage("What is this solution doing?")
                       }
-                      className="plasmo-border-[1px] plasmo-border-[#333] plasmo-text-[#ccc] plasmo-text-xs plasmo-p-2 plasmo-rounded-full">
+                      className="border-[1px] border-[#333] text-[#ccc] text-xs p-2 rounded-full">
                       What is this solution doing?
                     </button>
 
@@ -230,7 +228,7 @@ export default function ChatSidebar({
                           "What companies have asked this question?"
                         )
                       }
-                      className="plasmo-border-[1px] plasmo-border-[#333] plasmo-text-[#ccc] plasmo-text-xs plasmo-p-2 plasmo-rounded-full">
+                      className="border-[1px] border-[#333] text-[#ccc] text-xs p-2 rounded-full">
                       What companies have asked this question?
                     </button>
 
@@ -240,7 +238,7 @@ export default function ChatSidebar({
                           "What is the time complexity of my solution?"
                         )
                       }
-                      className="plasmo-border-[1px] plasmo-border-[#333] plasmo-text-[#ccc] plasmo-text-xs plasmo-p-2 plasmo-rounded-full">
+                      className="border-[1px] border-[#333] text-[#ccc] text-xs p-2 rounded-full">
                       What is the time complexity of my solution?
                     </button>
                   </div>
@@ -250,11 +248,11 @@ export default function ChatSidebar({
 
             {/* Show a loading while response is fetched */}
             {isFetchingResponse && (
-              <div className="plasmo-flex plasmo-flex-row plasmo-space-x-2 plasmo-relative">
-                <FaRobot className="plasmo-absolute plasmo-w-6 plasmo-h-6" />
+              <div className="flex flex-row space-x-2 relative">
+                <FaRobot className="absolute w-6 h-6" />
 
                 <ReactTyped
-                  className="plasmo-pl-6"
+                  className="pl-6"
                   strings={[
                     "Beep...Boop...",
                     "P-R-O-C-E-S-S-I-N-G...Bzzzzt...Bzzzzt...",
@@ -270,13 +268,13 @@ export default function ChatSidebar({
 
           {/* Chat Textbox */}
           <form
-            className="plasmo-p-4 plasmo-bg-[#333333] plasmo-border-t plasmo-border-[#0F0F0F]"
+            className="p-4 bg-[#333333] border-t border-[#0F0F0F]"
             onSubmit={(e) => e.preventDefault()} // Prevent form submission on Enter
           >
             <textarea
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
-              className="plasmo-w-full plasmo-p-2 plasmo-bg-[#3C3C3C] plasmo-text-white plasmo-rounded-md"
+              className="w-full p-2 bg-[#3C3C3C] text-white rounded-md"
               placeholder="Ask a follow-up question..."
               onKeyDown={(e) => handleKeyDown(e)}
               style={{ resize: "none", overflow: "hidden", minHeight: "40px" }} // Disable resizing
@@ -284,22 +282,22 @@ export default function ChatSidebar({
               onInput={(e) => handleInput(e)} // Dynamically adjust the height
             />
 
-            <div className="plasmo-flex plasmo-items-center plasmo-justify-between plasmo-mt-2">
-              <div className="plasmo-flex plasmo-flex-row space-x-4 plasmo-items-center">
+            <div className="flex items-center justify-between mt-2">
+              <div className="flex flex-row space-x-4 items-center">
                 <IoWarningOutline
-                  className={`${apiKey === "" ? "plasmo-text-red-500 plasmo-block" : "plasmo-hidden"} `}
+                  className={`${apiKey === "" ? "text-red-500 block" : "hidden"} `}
                 />
 
                 <p
                   onClick={() => handleUpdateAPIKey()}
-                  className={`${apiKey === "" ? "plasmo-text-red-500" : "plasmo-text-white"} plasmo-text-xs plasmo-select-none plasmo-cursor-pointer`}>
+                  className={`${apiKey === "" ? "text-red-500" : "text-white"} text-xs select-none cursor-pointer`}>
                   Gemini-1.5-Flash
                 </p>
               </div>
               <button
                 disabled={isFetchingResponse}
                 onClick={() => handleSendMessage()}
-                className="plasmo-text-white plasmo-hover:text-blue-500">
+                className="text-white hover:text-blue-500">
                 <FaRegPaperPlane size={18} />
               </button>
             </div>

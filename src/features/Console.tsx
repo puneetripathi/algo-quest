@@ -116,34 +116,34 @@ export default function Console({
         left: `${position.x}px`,
         top: `${position.y}px`
       }}
-      className="plasmo-fixed plasmo-p-5 plasmo-bg-black plasmo-rounded-md plasmo-z-[1000] plasmo-space-y-2">
+      className="fixed p-5 bg-black rounded-md z-[1000] space-y-2">
       <MdDragHandle
         onMouseDown={handleMouseDown}
-        className="plasmo-absolute plasmo-top-0 plasmo-left-1/2 plasmo-transform -plasmo-translate-x-1/2 plasmo-cursor-grab active:plasmo-cursor-grabbing"
+        className="absolute top-0 left-1/2 transform -translate-x-1/2 cursor-grab active:cursor-grabbing"
       />
 
-      <div className="plasmo-flex plasmo-flex-row plasmo-justify-center plasmo-items-center plasmo-space-x-2 plasmo-text-white">
+      <div className="flex flex-row justify-center items-center space-x-2 text-white">
         {isSolutionAccepted ? (
-          <FaCircleCheck className="plasmo-text-green-500" size={18} />
+          <FaCircleCheck className="text-green-500" size={18} />
         ) : isTimerRunning ? (
           <FaRegCirclePause
-            className="plasmo-text-yellow-500 plasmo-cursor-pointer"
+            className="text-yellow-500 cursor-pointer"
             size={18}
             onClick={() => toggleTimer()}
           />
         ) : (
           <FaRegCirclePlay
-            className="plasmo-text-green-500 plasmo-cursor-pointer"
+            className="text-green-500 cursor-pointer"
             size={18}
             onClick={() => toggleTimer()}
           />
         )}
 
-        <p className="plasmo-select-none">{formatTime(timeElapsed)}</p>
+        <p className="select-none">{formatTime(timeElapsed)}</p>
       </div>
 
-      <div className="plasmo-flex plasmo-justify-center plasmo-items-center">
-        <p className="plasmo-text-xs plasmo-text-gray-500">
+      <div className="flex justify-center items-center">
+        <p className="text-xs text-gray-500">
           Best time: {bestTime > 0 ? formatTime(bestTime) : "N/A"}
         </p>
       </div>
